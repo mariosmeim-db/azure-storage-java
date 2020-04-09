@@ -40,17 +40,14 @@ import java.net.UnknownHostException;
 public class KeepAliveSocketFactory extends SSLSocketFactory {
     private SSLSocketFactory delegate;
 
-    private static KeepAliveSocketFactory singletonKeepAliceSocketFactory;
+    private static final KeepAliveSocketFactory singletonKeepAliveSocketFactory = new KeepAliveSocketFactory(HttpsURLConnection.getDefaultSSLSocketFactory());
 
     KeepAliveSocketFactory(SSLSocketFactory delegate) {
         this.delegate = delegate;
     }
 
     public static KeepAliveSocketFactory getInstance() {
-        if(singletonKeepAliceSocketFactory == null) {
-            singletonKeepAliceSocketFactory = new KeepAliveSocketFactory(HttpsURLConnection.getDefaultSSLSocketFactory());
-        }
-        return singletonKeepAliceSocketFactory;
+        return singletonKeepAliveSocketFactory;
     }
 
     @Override
