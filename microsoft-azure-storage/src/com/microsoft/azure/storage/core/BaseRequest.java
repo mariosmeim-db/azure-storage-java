@@ -70,7 +70,6 @@ public final class BaseRequest {
      */
     private static SSLSocketFactory staticKeepAliveSocketFactory ;
 
-
     /**
      * Adds the metadata.
      *
