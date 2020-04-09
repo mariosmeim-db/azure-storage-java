@@ -108,7 +108,7 @@ public abstract class RequestOptions {
         }
 
         if (modifiedOptions.disableHttpsSocketKeepAlive() == null) {
-            modifiedOptions.setDisableHttpsSocketKeepAlive(true);
+            modifiedOptions.setDisableHttpsSocketKeepAlive(false);
         }
     }
 
