@@ -35,6 +35,7 @@ import com.microsoft.azure.storage.RequestOptions;
 import com.microsoft.azure.storage.StorageException;
 
 import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLSocketFactory;
 
 import static com.microsoft.azure.storage.Constants.QueryConstants.PROPERTIES;
 
@@ -63,6 +64,12 @@ public final class BaseRequest {
      * Stores the user agent to send over the wire to identify the client.
      */
     private static String userAgent;
+
+    /**
+     * Singleton instance for keepalive Socket Factory
+     */
+    private static SSLSocketFactory staticKeepAliveSocketFactory ;
+
 
     /**
      * Adds the metadata.
@@ -229,8 +236,11 @@ public final class BaseRequest {
         If we are using https, check if we should enable socket keep-alive timeouts to work around JVM bug.
          */
         if (retConnection instanceof HttpsURLConnection && !options.disableHttpsSocketKeepAlive()) {
+            if(staticKeepAliveSocketFactory == null) {
+                staticKeepAliveSocketFactory = new KeepAliveSocketFactory(HttpsURLConnection.getDefaultSSLSocketFactory());
+            }
             HttpsURLConnection httpsConnection = ((HttpsURLConnection) retConnection);
-            httpsConnection.setSSLSocketFactory(new KeepAliveSocketFactory(httpsConnection.getSSLSocketFactory()));
+            httpsConnection.setSSLSocketFactory(staticKeepAliveSocketFactory);
         }
 
         /*
