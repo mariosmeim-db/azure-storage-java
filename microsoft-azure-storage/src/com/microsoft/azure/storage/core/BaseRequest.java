@@ -66,11 +66,6 @@ public final class BaseRequest {
     private static String userAgent;
 
     /**
-     * Singleton instance for keepalive Socket Factory
-     */
-    private static SSLSocketFactory staticKeepAliveSocketFactory ;
-
-    /**
      * Adds the metadata.
      *
      * @param request
