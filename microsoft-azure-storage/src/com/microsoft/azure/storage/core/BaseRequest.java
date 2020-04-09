@@ -235,11 +235,8 @@ public final class BaseRequest {
         If we are using https, check if we should enable socket keep-alive timeouts to work around JVM bug.
          */
         if (retConnection instanceof HttpsURLConnection && !options.disableHttpsSocketKeepAlive()) {
-            if(staticKeepAliveSocketFactory == null) {
-                staticKeepAliveSocketFactory = new KeepAliveSocketFactory(HttpsURLConnection.getDefaultSSLSocketFactory());
-            }
             HttpsURLConnection httpsConnection = ((HttpsURLConnection) retConnection);
-            httpsConnection.setSSLSocketFactory(staticKeepAliveSocketFactory);
+            httpsConnection.setSSLSocketFactory(KeepAliveSocketFactory.getInstance());
         }
 
         /*

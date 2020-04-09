@@ -15,6 +15,7 @@
 
 package com.microsoft.azure.storage.core;
 
+import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLSocketFactory;
 import java.io.IOException;
 import java.net.InetAddress;
@@ -39,8 +40,17 @@ import java.net.UnknownHostException;
 public class KeepAliveSocketFactory extends SSLSocketFactory {
     private SSLSocketFactory delegate;
 
+    private static KeepAliveSocketFactory singletonKeepAliceSocketFactory;
+
     KeepAliveSocketFactory(SSLSocketFactory delegate) {
         this.delegate = delegate;
+    }
+
+    public static KeepAliveSocketFactory getInstance() {
+        if(singletonKeepAliceSocketFactory == null) {
+            singletonKeepAliceSocketFactory = new KeepAliveSocketFactory(HttpsURLConnection.getDefaultSSLSocketFactory());
+        }
+        return singletonKeepAliceSocketFactory;
     }
 
     @Override
