@@ -61,35 +61,35 @@ public class KeepAliveSocketFactory extends SSLSocketFactory {
     }
 
     @Override
-    public synchronized Socket createSocket(Socket socket, String s, int i, boolean b) throws IOException {
+    public Socket createSocket(Socket socket, String s, int i, boolean b) throws IOException {
         Socket ret = delegate.createSocket(socket, s, i, b);
         ret.setKeepAlive(true);
         return ret;
     }
 
     @Override
-    public synchronized Socket createSocket(String s, int i) throws IOException, UnknownHostException {
+    public Socket createSocket(String s, int i) throws IOException, UnknownHostException {
         Socket ret = delegate.createSocket(s, i);
         ret.setKeepAlive(true);
         return ret;
     }
 
     @Override
-    public synchronized Socket createSocket(String s, int i, InetAddress inetAddress, int i1) throws IOException, UnknownHostException {
+    public Socket createSocket(String s, int i, InetAddress inetAddress, int i1) throws IOException, UnknownHostException {
         Socket ret = delegate.createSocket(s, i, inetAddress, i1);
         ret.setKeepAlive(true);
         return ret;
     }
 
     @Override
-    public synchronized Socket createSocket(InetAddress inetAddress, int i) throws IOException {
+    public Socket createSocket(InetAddress inetAddress, int i) throws IOException {
         Socket ret = delegate.createSocket(inetAddress, i);
         ret.setKeepAlive(true);
         return ret;
     }
 
     @Override
-    public synchronized Socket createSocket(InetAddress inetAddress, int i, InetAddress inetAddress1, int i1) throws IOException {
+    public Socket createSocket(InetAddress inetAddress, int i, InetAddress inetAddress1, int i1) throws IOException {
         Socket ret = delegate.createSocket(inetAddress, i, inetAddress1, i1);
         ret.setKeepAlive(true);
         return ret;
