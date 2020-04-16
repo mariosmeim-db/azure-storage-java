@@ -35,6 +35,7 @@ import com.microsoft.azure.storage.RequestOptions;
 import com.microsoft.azure.storage.StorageException;
 
 import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLSocketFactory;
 
 import static com.microsoft.azure.storage.Constants.QueryConstants.PROPERTIES;
 
@@ -230,7 +231,7 @@ public final class BaseRequest {
          */
         if (retConnection instanceof HttpsURLConnection && !options.disableHttpsSocketKeepAlive()) {
             HttpsURLConnection httpsConnection = ((HttpsURLConnection) retConnection);
-            httpsConnection.setSSLSocketFactory(new KeepAliveSocketFactory(httpsConnection.getSSLSocketFactory()));
+            httpsConnection.setSSLSocketFactory(KeepAliveSocketFactory.getInstance());
         }
 
         /*
